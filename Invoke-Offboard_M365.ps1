@@ -82,14 +82,14 @@ if ($assignedLicenses) {
 Write-Host "[*] Step 5: Removing user from all security and distribution groups..." -ForegroundColor Yellow
 $memberGroups = Get-MgUserMemberOf -UserId $user.Id -All
 foreach ($group in $memberGroups) {
-    try {
-        Remove-MgGroupMemberByRef -GroupId $group.Id -DirectoryObjectId $user.Id
-        $GroupName = $group.AdditionalProperties.displayName
-        Write-Host " Removed from group: $GroupName" -ForegroundColor Gray
-
-    } catch {
-        Write-Host "    Failed to remove from group ID $($group.Id): $_" -ForegroundColor Red
-    }
+ $GroupName = $group.AdditionalProperties.displayName
+ try {
+ Remove-MgGroupMemberByRef ` -GroupId $group.Id ` -DirectoryObjectId $user.Id -ErrorAction Stop
+ Write-Host " Removed from group: $GroupName" -ForegroundColor Gray 
+}
+catch {
+Write-Host " Failed to remove group: $GroupName ($($group.Id))" -ForegroundColor Red
+}
 }
 
 
