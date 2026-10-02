@@ -13,10 +13,11 @@
 #>
 
 param(
-    [Parameter(Mandatory=$true)]
-    [string]$UserPrincipalName,
+
+    [string]$CsvPath = "C:\Temp\testCSV.csv",
 
     [string]$AuditLogPath = "./AuditReports/ExchangeOffboarding.csv"
+
 )
 
 # Ensure audit folder exists
@@ -30,11 +31,6 @@ if ($logDir -and !(Test-Path $logDir)) {
         -Force | Out-Null
 }
 
-Write-Host ""
-Write-Host "=== STARTING EXCHANGE OFFBOARDING ===" -ForegroundColor Cyan
-Write-Host "Target User: $UserPrincipalName" -ForegroundColor White
-Write-Host ""
-
 # Connect Exchange if required
 
 if (-not (Get-Command Set-Mailbox -ErrorAction SilentlyContinue)) {
@@ -44,11 +40,25 @@ if (-not (Get-Command Set-Mailbox -ErrorAction SilentlyContinue)) {
     Connect-ExchangeOnline
 }
 
-# Verify mailbox exists
+$Leavers = Import-Csv $CsvPath
 
-$mailbox = Get-Mailbox $UserPrincipalName -ErrorAction Stop
+foreach ($Leaver in $Leavers) {
 
-Write-Host "[+] Mailbox Found: $($mailbox.DisplayName)" -ForegroundColor Green
+    $UserPrincipalName = $Leaver.UserPrincipalName
+
+    Write-Host ""
+    Write-Host "======================================" -ForegroundColor Cyan
+    Write-Host "Processing: $UserPrincipalName" -ForegroundColor Cyan
+    Write-Host "======================================" -ForegroundColor Cyan
+    Write-Host ""
+
+    Write-Host "=== STARTING EXCHANGE OFFBOARDING ===" -ForegroundColor Cyan
+
+    # Verify mailbox exists
+
+    $mailbox = Get-Mailbox $UserPrincipalName -ErrorAction Stop
+
+    Write-Host "[+] Mailbox Found: $($mailbox.DisplayName)" -ForegroundColor Green
 
 # Convert mailbox
 
@@ -153,3 +163,5 @@ Write-Host ""
 Write-Host "=== EXCHANGE OFFBOARDING COMPLETE ===" -ForegroundColor Cyan
 Write-Host "Audit Report: $AuditLogPath" -ForegroundColor Green
 Write-Host ""
+
+}
