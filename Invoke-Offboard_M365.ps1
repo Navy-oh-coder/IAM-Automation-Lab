@@ -31,14 +31,15 @@ Write-Host "[*] Step 1: Blocking user sign-in..." -ForegroundColor Yellow
 Update-MgUser -UserId $user.Id -AccountEnabled:$false
 
 # 3. Remove manager
-Write-Host "[*] Step 3: Removing manager..." -ForegroundColor Yellow
+Write-Host "[*] Step 2: Removing manager..." -ForegroundColor Yellow
+
 try {
     Remove-MgUserManagerByRef -UserId $user.Id -ErrorAction Stop
     Write-Host "    Manager removed." -ForegroundColor Green
 }
- catch {
- Write-Host " Failed to remove manager: $($_.Exception.Message)" -ForegroundColor Red
- }
+catch {
+    Write-Host "    Failed to remove manager: $($_.Exception.Message)" -ForegroundColor Red
+}
 
 
 # 4. Revoke Active Sessions
