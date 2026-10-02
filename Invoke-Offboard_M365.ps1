@@ -10,17 +10,33 @@
 #>
 
 param(
-    [Parameter(Mandatory=$true)]
-    [string]$UserPrincipalName,
-    
-    [string]$AuditLogPath = "./AuditReports/Offboarding.csv"
+ 
+[string]$CsvPath = "C:\Temp\testCSV.csv",
+ 
+[string]$AuditLogPath = "./AuditReports/Offboarding.csv"
+ 
 )
 
 # Ensure audit directory exists
 $logDir = Split-Path $AuditLogPath -Parent
 if ($logDir -and !(Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
 
-Write-Host "=== STARTING M365 OFFBOARDING SEQUENCE FOR: $UserPrincipalName ===" -ForegroundColor Cyan
+$Leavers = Import-Csv $CsvPath
+
+foreach ($Leaver in $Leavers) {
+
+    $UserPrincipalName = $Leaver.UserPrincipalName
+
+    Write-Host ""
+    Write-Host "======================================" -ForegroundColor Cyan
+    Write-Host "Processing: $UserPrincipalName" -ForegroundColor Cyan
+    Write-Host "======================================" -ForegroundColor Cyan
+    Write-Host ""
+    try
+{
+    Write-Host "=== STARTING M365 OFFBOARDING SEQUENCE FOR: $UserPrincipalName ===" -ForegroundColor Cyan
+
+   
 
 # 1. Retrieve User Object
 $user = Get-MgUser -UserId $UserPrincipalName -ErrorAction Stop
@@ -44,33 +60,40 @@ catch {
 
 # 4. Revoke Active Sessions
 Write-Host "[*] Step 3: Revoking all active refresh tokens and sessions..." -ForegroundColor Yellow
-Revoke-MgUserSignInSession -UserId $user.Id
+$null = Revoke-MgUserSignInSession -UserId $user.Id
+Write-Host "    Sessions revoked." -ForegroundColor Green
 
 
 
-# 5. Strip Group Memberships
-Write-Host "[*] Step 4: Removing user from all security and distribution groups..." -ForegroundColor Yellow
-$memberGroups = Get-MgUserMemberOf -UserId $user.Id
+# 5. Remove All Assigned Licenses
+Write-Host "[*] Step 4: Stripping assigned product licenses..." -ForegroundColor Yellow
+$assignedLicenses = (Get-MgUser -UserId $user.Id -Property AssignedLicenses).AssignedLicenses
+if ($assignedLicenses) {
+    $licenseToRemove = @($assignedLicenses.SkuId)
+   $null = Set-MgUserLicense -UserId $user.Id -AddLicenses @() -RemoveLicenses $licenseToRemove
+    Write-Host "    Successfully removed $($licenseToRemove.Count) license(s)." -ForegroundColor Green
+} else {
+    Write-Host "    No active licenses found to remove." -ForegroundColor Gray
+}
+
+
+
+# 6. Strip Group Memberships
+Write-Host "[*] Step 5: Removing user from all security and distribution groups..." -ForegroundColor Yellow
+$memberGroups = Get-MgUserMemberOf -UserId $user.Id -All
 foreach ($group in $memberGroups) {
     try {
         Remove-MgGroupMemberByRef -GroupId $group.Id -DirectoryObjectId $user.Id
-        Write-Host "    Removed from group ID: $($group.Id)" -ForegroundColor Gray
+        $GroupName = $group.AdditionalProperties.displayName
+        Write-Host " Removed from group: $GroupName" -ForegroundColor Gray
+
     } catch {
         Write-Host "    Failed to remove from group ID $($group.Id): $_" -ForegroundColor Red
     }
 }
 
 
-# 6. Remove All Assigned Licenses
-Write-Host "[*] Step 5: Stripping assigned product licenses..." -ForegroundColor Yellow
-$assignedLicenses = (Get-MgUser -UserId $user.Id -Property AssignedLicenses).AssignedLicenses
-if ($assignedLicenses) {
-    $licenseToRemove = @($assignedLicenses.SkuId)
-    Set-MgUserLicense -UserId $user.Id -AddLicenses @() -RemoveLicenses $licenseToRemove
-    Write-Host "    Successfully removed $($licenseToRemove.Count) license(s)." -ForegroundColor Green
-} else {
-    Write-Host "    No active licenses found to remove." -ForegroundColor Gray
-}
+
 
 
 # 7. Generate Compliance Evidence Report
@@ -86,5 +109,18 @@ $auditRecord = [PSCustomObject]@{
     ProcessedBy            = (Get-MgContext).Account
 }
 
-$auditRecord | Export-Csv -Path $AuditLogPath -NoTypeInformation
+$auditRecord | Export-Csv -Path $AuditLogPath -NoTypeInformation -Append
 Write-Host "=== OFFBOARDING COMPLETE. Audit report saved to: $AuditLogPath ===" -ForegroundColor Cyan
+
+
+ }
+
+catch {
+ 
+Write-Host ""
+Write-Host "FAILED: $UserPrincipalName" -ForegroundColor Red
+Write-Host $_.Exception.Message -ForegroundColor Red
+ 
+        }
+ 
+} # <- LOOP ENDS HERE
