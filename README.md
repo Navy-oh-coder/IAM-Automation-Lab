@@ -1,4 +1,4 @@
-# M365 Automation
+# M365 Offboarding Automation
 
 PowerShell automation for Microsoft 365 offboarding.
 
