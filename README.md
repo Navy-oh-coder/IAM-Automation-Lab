@@ -1,186 +1,86 @@
 # IAM Automation Lab
 
-PowerShell automation, identity governance, and Microsoft 365 engineering projects focused on improving Identity and Access Management (IAM), Joiner-Mover-Leaver (JML) processes, security governance, and operational efficiency.
+A practical engineering portfolio focused on Microsoft Entra ID, Identity and Access Management (IAM), identity governance, PowerShell automation and Microsoft 365 Copilot governance.
 
-This repository serves as an engineering lab for developing, testing, and documenting automation solutions across Microsoft Entra ID, Microsoft 365, Exchange Online, Identity Governance, and Copilot readiness initiatives.
+This repository contains working scripts, technical designs, implementation plans and lessons learned. Capabilities are labelled according to their current state so that planned work is not confused with tested functionality.
 
----
+## Workstreams
 
-## Repository Structure
+### 1. Entra ID
+
+Identity security, lifecycle automation, access governance and identity hygiene.
+
+- **Security:** Conditional Access, MFA and authentication methods, Identity Protection, Privileged Identity Management (PIM) and emergency access.
+- **Lifecycle:** Joiner, mover and leaver processes.
+- **Governance:** Access Reviews, Entitlement Management, group and access governance, and Lifecycle Workflows.
+- **Hygiene:** Stale identities, guest accounts, group ownership, missing attributes and licensing.
+- **Reporting:** Group inventory, licensing reports, audit evidence and governance metrics.
+
+Start here: [Entra-ID/README.md](Entra-ID/README.md)
+
+### 2. Copilot Governance
+
+Readiness and governance for Microsoft 365 Copilot and AI agents, including SharePoint permissions, data governance, Microsoft Purview and agent security.
+
+Start here: [Copilot-Governance/README.md](Copilot-Governance/README.md)
+
+## Programme roadmap
+
+The central roadmap identifies priorities, dependencies and planned deliverables across both workstreams.
+
+See [docs/ROADMAP.md](docs/ROADMAP.md).
+
+## Repository structure
 
 ```text
-IAM-Automation-Lab
-│
-├── JML-Automation
-│   ├── Joiner
-│   ├── Movers
-│   └── Leavers
-│
-├── Identity-Hygiene
-│   ├── Inactive-Users
-│   ├── Guest-Lifecycle
-│   └── Manager-Sync
-│
-├── Governance
-│   ├── Access-Reviews
-│   ├── Entitlement-Management
-│   └── Lifecycle-Workflows
-│
-└── Reporting
-    ├── Group-Inventory
-    ├── Licensing
-    └── Copilot-Readiness
+IAM-Automation-Lab/
+├── Entra-ID/
+│   ├── Security/
+│   ├── Lifecycle/
+│   │   ├── Joiners/
+│   │   ├── Movers/
+│   │   └── Leavers/
+│   ├── Governance/
+│   │   ├── Access-Reviews/
+│   │   └── Entitlement-Management/
+│   ├── Hygiene/
+│   └── Reporting/
+├── Copilot-Governance/
+│   └── Readiness/
+└── docs/
+    ├── ROADMAP.md
+    └── ENGINEERING-STANDARDS.md
 ```
 
----
+Folders are added as real artefacts are developed. The structure is intended to grow with the work rather than create empty folders for every possible feature.
 
-# Joiner Automation
+## Implementation status
 
-Automation for onboarding new starters into Microsoft 365 and Entra ID.
+Each capability should use one of these statuses:
 
-### Objectives
+- **Implemented:** Relevant code or configuration artefacts exist.
+- **In development:** Work has started but is incomplete.
+- **Planned:** A design or intended outcome exists, but implementation has not started.
+- **Placeholder:** A file or document exists but does not yet provide the described functionality.
+- **Validated:** Testing evidence has been recorded for the stated environment and scope.
 
-- Create new user accounts
-- Assign managers
-- Populate user attributes
-- Assign licences
-- Configure mailbox settings
-- Add security and Microsoft 365 group memberships
-- Generate onboarding audit reports
+A capability must not be described as production-ready solely because a script or README exists.
 
----
+## Engineering standards
 
-# Mover Automation
+All automation should follow least privilege, safe execution, explicit error handling, useful audit evidence and documented validation procedures.
 
-Automation for internal role changes and departmental transfers.
+See [docs/ENGINEERING-STANDARDS.md](docs/ENGINEERING-STANDARDS.md).
 
-### Objectives
+## Technology
 
-- Update managers
-- Modify group memberships
-- Reassign licences
-- Perform access reviews
-- Support group-based access management
-- Reduce directly assigned permissions
-- Maintain audit trails
-
----
-
-# Leaver Automation
-
-Automation for offboarding users from Microsoft 365.
-
-### Current Features
-
-#### Entra ID Offboarding
-
-- Disable account
-- Remove manager
-- Revoke active sessions
-- Remove group memberships
-- Remove licences
-- Export audit logs
-
-#### Exchange Online Offboarding
-
-- Convert mailbox to shared
-- Remove distribution groups
-- Remove mail-enabled security groups
-- Export audit logs
-
----
-
-# Identity Hygiene
-
-Projects focused on maintaining accurate and secure identity data.
-
-### Inactive Users
-
-- Detect dormant accounts
-- Identify stale users
-- Reclaim licences
-- Generate inactivity reports
-- Support automated remediation
-
-### Guest Lifecycle Management
-
-- Detect inactive guest accounts
-- Review guest activity
-- Notify guest sponsors
-- Revoke licences
-- Remove expired guests
-- Generate governance reports
-
-### Manager & Attribute Sync
-
-- Validate manager assignments
-- Check department values
-- Check employee hire dates
-- Identify missing user attributes
-- Generate alerts and remediation reports
-
----
-
-# Governance
-
-Identity Governance solutions using Microsoft Entra ID.
-
-### Access Reviews
-
-- Group access reviews
-- Guest access reviews
-- Manager attestations
-- Access certification
-- Review reporting
-
-### Entitlement Management
-
-- Access Packages
-- Approval workflows
-- Assignment policies
-- Access lifecycle management
-- Temporary access controls
-
-### Lifecycle Workflows
-
-- Joiner workflows
-- Mover workflows
-- Leaver workflows
-- Workflow monitoring
-- Governance reporting
-
----
-
-# Reporting
-
-Data collection, auditing, and governance reporting.
-
-### Group Inventory
-
-- Group ownership
-- Membership analysis
-- Dynamic group reporting
-- Team-connected group reporting
-- Governance assessments
-
-### Licensing
-
-- Licence utilisation
-- Group-based licensing analysis
-- Direct assignment reporting
-- Cost optimisation opportunities
-
-### Copilot Readiness
-
-- Microsoft 365 data governance assessments
-- Security posture reviews
-- Permission analysis
-- Purview readiness checks
-- Copilot deployment readiness reporting
-
----
-
-# Technology Stack
-
-- PowerShell 7
+- Microsoft Entra ID
 - Microsoft Graph PowerShell SDK
+- PowerShell 7
+- Exchange Online PowerShell
+- Microsoft Entra Identity Governance
+- Microsoft Purview and Microsoft 365 Copilot governance
+
+## Disclaimer
+
+This is an engineering lab and portfolio. Scripts must be reviewed and tested in a non-production environment before use. Required licences, permissions, module versions and service limitations should be verified for the target environment.
