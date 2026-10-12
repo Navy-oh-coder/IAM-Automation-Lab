@@ -22,7 +22,7 @@ Priorities describe the recommended implementation sequence, not a claim that ev
 
 ## Priority 2 — Stabilise identity hygiene
 
-**Objective:** Establish trustworthy identity data and actionable audit reports.
+**Objective:** Establish trustworthy identity data and prioritise safe, owner-approved access remediation.
 
 - [ ] Audit ownerless groups and missing identity attributes.
 - [ ] Review inactive guest accounts and sponsor ownership.
