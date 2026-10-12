@@ -20,16 +20,14 @@ Priorities describe the recommended implementation sequence, not a claim that ev
 
 **Exit criteria:** A documented baseline, a list of gaps and evidence showing which controls have been validated.
 
-## Priority 2 — Stabilise identity hygiene and reporting
+## Priority 2 — Stabilise identity hygiene
 
 **Objective:** Establish trustworthy identity data and actionable audit reports.
 
-- [ ] Correct stale-account and licensing report logic.
 - [ ] Audit ownerless groups and missing identity attributes.
 - [ ] Review inactive guest accounts and sponsor ownership.
 - [ ] Identify direct group and licence assignments where applicable.
 - [ ] Distinguish failed queries from genuine governance findings.
-- [ ] Standardise output paths, report schemas and timestamps.
 - [ ] Document remediation approval and evidence requirements.
 
 **Exit criteria:** Repeatable audit-only reports with clear findings and documented limitations.
@@ -66,6 +64,8 @@ Priorities describe the recommended implementation sequence, not a claim that ev
 
 **Objective:** Measure governance outcomes rather than simply count scripts.
 
+- [ ] Correct stale-account and licensing report logic.
+- [ ] Standardise output paths, report schemas and timestamps.
 - [ ] Track privileged role and PIM coverage.
 - [ ] Track guest inactivity and review outcomes.
 - [ ] Track joiner and leaver completion and failure rates.

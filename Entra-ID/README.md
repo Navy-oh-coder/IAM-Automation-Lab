@@ -4,11 +4,13 @@ This workstream covers Microsoft Entra ID security, identity lifecycle managemen
 
 ## Areas of focus
 
-- **Security:** Conditional Access, MFA, authentication methods, Identity Protection, Privileged Identity Management (PIM) and emergency access.
-- **Lifecycle:** Joiner, mover and leaver processes.
-- **Governance:** Access Reviews, Entitlement Management, group ownership and Lifecycle Workflows.
-- **Hygiene:** Stale identities, guest accounts, missing attributes, group ownership and licensing analysis.
-- **Reporting:** Identity inventory, licensing reports, audit evidence and governance metrics.
+The corresponding repository folders use numeric prefixes to keep the execution areas in a conventional, sortable order.
+
+- **01-Security:** Conditional Access, MFA, authentication methods, Identity Protection, Privileged Identity Management (PIM) and emergency access.
+- **03-Lifecycle:** Joiner, mover and leaver processes.
+- **04-Governance:** Access Reviews, Entitlement Management, group ownership and Lifecycle Workflows.
+- **02-Hygiene:** Stale identities, guest accounts, missing attributes, group ownership and licensing analysis.
+- **05-Reporting:** Identity inventory, licensing reports, audit evidence and governance metrics.
 
 ## Repository status
 

@@ -26,7 +26,7 @@ Start here: [Copilot-Governance/README.md](Copilot-Governance/README.md)
 
 ## Programme roadmap
 
-The central roadmap identifies priorities, dependencies and planned deliverables across both workstreams.
+The central roadmap identifies priorities, dependencies and planned deliverables. Current execution is focused on Entra ID; Copilot governance remains a separate, deferred workstream for this pass.
 
 See [docs/ROADMAP.md](docs/ROADMAP.md).
 
@@ -35,16 +35,16 @@ See [docs/ROADMAP.md](docs/ROADMAP.md).
 ```text
 IAM-Automation-Lab/
 ├── Entra-ID/
-│   ├── Security/
-│   ├── Lifecycle/
+│   ├── 01-Security/
+│   ├── 02-Hygiene/
+│   ├── 03-Lifecycle/
 │   │   ├── Joiners/
 │   │   ├── Movers/
 │   │   └── Leavers/
-│   ├── Governance/
+│   ├── 04-Governance/
 │   │   ├── Access-Reviews/
 │   │   └── Entitlement-Management/
-│   ├── Hygiene/
-│   └── Reporting/
+│   └── 05-Reporting/
 ├── Copilot-Governance/
 │   └── Readiness/
 └── docs/
