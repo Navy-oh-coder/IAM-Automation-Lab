@@ -1,59 +1,34 @@
-Entra Governance
-A collection of Microsoft Graph PowerShell scripts used to perform Microsoft Entra ID hygiene and governance reviews.
+# Entra ID Identity Hygiene
 
-Scripts
-1_Stale_Accounts.ps1
-Identifies enabled accounts that have not signed in within the defined period.
+PowerShell automation for auditing Microsoft Entra ID identities, group ownership, licensing, user attributes, and authentication methods.
 
-Output:
+Designed to support **Identity and Access Management (IAM)**, security reviews, and ongoing identity governance.
 
-InactiveUsers90Days.csv
-2_Directly_Assigned_Licences.ps1
-Identifies users with directly assigned licences rather than group-based licensing.
+---
 
-Used to support licence governance and group-based licensing initiatives.
+## Scripts
 
-Output:
+| Script | Description |
+|:---|:---|
+| `1_Stale_Accounts.ps1` | Identifies enabled user accounts that have not signed in within the configured period. |
+| `2_Directly_Assigned_Licences.ps1` | Identifies users with directly assigned licences to support group-based licensing. |
+| `3_Groups_Without_Owners.ps1` | Identifies Microsoft 365 groups and security groups without owners. |
+| `4_Users_With_Missing_Attributes.ps1` | Identifies enabled users missing manager, department, or job title attributes. |
+| `5_Guests_Not_Used_Recently.ps1` | Identifies guest accounts with no sign-in activity within the configured period. |
+| `6_MFA_Auth_Method_Review.ps1` | Reviews registered authentication methods and MFA-related configuration. |
 
-UserList_Microsoft_365_E5_Licences.csv
-3_Groups_Without_Owners.ps1
-Identifies Microsoft 365 Groups and Security Groups that do not have owners assigned.
+---
 
-Output:
+## Technology Stack
 
-OwnerlessGroups.csv
-4_Users_With_Missing_Attributes.ps1
-Reviews enabled users for missing:
+- **PowerShell 7**
+- **Microsoft Graph PowerShell SDK**
+- **Microsoft Entra ID**
 
-Manager
-Department
-Job Title
-Supports:
+---
 
-Dynamic Groups
-Lifecycle Workflows
-Access Reviews
-Entitlement Management
-Output:
+## Permissions
 
-AttributeHygieneAudit.csv
-5_Guests_Not_Used_Recently.ps1
-Identifies guest accounts that have not signed in within the defined period.
+Required Microsoft Graph permissions depend on the script being executed. Review each script and grant only the permissions necessary for its functionality.
 
-Supports guest lifecycle governance and cleanup.
-
-Output:
-
-StaleGuests90Days.csv
-6_MFA_Auth_Method_Review.ps1
-Reviews registered authentication methods and MFA configuration.
-
-Optional if legacy authentication is already blocked via Conditional Access.
-
-Required Microsoft Graph Permissions
-Recommended:
-
-AuditLog.Read.All
-User.Read.All
-Directory.Read.All
-Group.Read.All
+> **Note:** These scripts are intended for auditing and reporting. Validate findings before performing remediation.
