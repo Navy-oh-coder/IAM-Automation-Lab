@@ -1,29 +1,32 @@
 # M365 Offboarding Automation
 
-## Current status
+## Overview
 
-**Scripts present; validation status unconfirmed.** The repository contains Microsoft 365 and Exchange Online offboarding scripts. Review permissions, group-type handling, error paths, audit accuracy and mailbox/licensing dependencies before use.
+This folder contains reference PowerShell scripts and implementation notes for Microsoft Entra ID, Microsoft 365 and Exchange Online offboarding.
 
-## Entra ID and Microsoft 365 script
+**Status: reference material; production readiness is not implied.** The scripts and integration patterns require environment-specific permission review and testing before use.
 
-`Invoke-Offboard-M365.ps1`
+## Existing scripts
 
-The script contains actions intended to block sign-in, remove a manager, revoke sessions, remove assigned licences, remove group memberships and export a report. These behaviours have not been independently validated in this repository.
+| File | Purpose | Important note |
+|---|---|---|
+| [Invoke-Offboard-M365.ps1](./Invoke-Offboard-M365.ps1) | Reference sequence for identity/session, licence and group offboarding actions | Review group types, licensing dependencies, error handling and audit accuracy before use. |
+| [Invoke-Offboard-Exchange.ps1](./Invoke-Offboard-Exchange.ps1) | Reference Exchange Online mailbox and mail-enabled group actions | Validate each write operation and ensure the audit log reflects actual results. |
+| [Invoke-Offboard-Placeholder.ps1](./Invoke-Offboard-Placeholder.ps1) | Preserved placeholder | Not a working entry point. |
 
-## Exchange Online script
+## Entra Lifecycle Workflows → Logic App → Azure Automation
 
-`Invoke-Offboard-Exchange.ps1`
+See [Logic App custom extension setup](./Logic-App-Setup/README.md) for the documented integration pattern, setup sequence, examples, test runbooks and troubleshooting.
 
-The script contains actions intended to convert a mailbox to a shared mailbox, remove mail-enabled group memberships and export a report. Validate its handling of errors and evidence before use.
+The integration pattern has been exercised end to end in a test environment. That does **not** mean all mailbox or group-removal actions in the existing scripts have been independently validated.
 
-## Preserved placeholder
+## Safety checklist
 
-`Invoke-Offboard-Placeholder.ps1` is an effectively empty placeholder retained from the original repository. It is not a working offboarding entry point.
-
-## Safety and validation
-
-- Review CSV schema and target identities before execution.
-- Confirm required Microsoft Graph and Exchange permissions.
-- Validate each action separately and record successful, failed and skipped outcomes.
-- Confirm mailbox retention, licensing and compliance requirements.
-- Test in a non-production environment; do not treat command output alone as proof of successful offboarding.
+- Use a dedicated test account and non-production environment first.
+- Review CSV schemas and verify every target identity before execution.
+- Confirm required Microsoft Graph, Entra directory-role and Exchange permissions.
+- Test each destructive action independently; preserve mailbox, legal hold, retention and licensing requirements.
+- Record per-action success, failure and skipped states; do not infer success from a submitted job or a success banner.
+- Review group-type handling and nested/dynamic group behaviour.
+- Never commit tenant identifiers, object IDs, resource IDs, signed trigger URLs, access tokens, credentials or employer-specific configuration.
+- Treat examples in this folder as templates, not a substitute for change approval and operational validation.
