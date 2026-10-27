@@ -1,0 +1,20 @@
+{
+  "_comment": "Illustrative sanitised mapping only; NOT a deployable Logic App definition. Create the actual Consumption Logic App through the Entra Lifecycle Workflow custom task extension wizard so its secured trigger and authorization configuration are generated correctly. Do not replace the generated trigger with a generic HTTP trigger.",
+  "trigger": {
+    "providedBy": "Microsoft Entra Lifecycle Workflow custom task extension wizard",
+    "doNotReplaceGeneratedTrigger": true
+  },
+  "mapping": {
+    "userPrincipalNameExpression": "triggerBody()?['data']?['subject']?['userPrincipalName']",
+    "azureAutomationAction": "Create job",
+    "runbookParameterObjectExpression": "addProperty(json('{}'), 'UserPrincipalName', triggerBody()?['data']?['subject']?['userPrincipalName'])",
+    "waitForJob": false,
+    "note": "When waitForJob is false, the Logic App action confirms job submission only. Inspect the Azure Automation job separately to confirm completion."
+  },
+  "placeholders": {
+    "subscription": "<YOUR-SUBSCRIPTION>",
+    "resourceGroup": "<YOUR-RESOURCE-GROUP>",
+    "automationAccount": "<YOUR-AUTOMATION-ACCOUNT>",
+    "runbookName": "<YOUR-PUBLISHED-RUNBOOK>"
+  }
+}
