@@ -13,11 +13,15 @@ Planned areas include:
 - Identity Protection risk detection and response.
 - Administrative account separation and privileged access review.
 
-## Current status
+## Current lab
 
-This README is a planning and scope document. It does not claim that security scripts or configuration exports exist in this folder, nor that controls have been independently validated.
+### Intune Device Compliance & Entra Conditional Access
 
-Tenant configuration and implementation evidence should be documented separately from repository code. Do not commit credentials, tokens or sensitive tenant exports.
+[Open the lab guide](./Device-Compliance-Conditional-Access/README.md).
+
+This lab documents a Zero Trust device-access pattern: Intune evaluates Windows device compliance and Entra Conditional Access uses the compliance signal when making access decisions.
+
+**Status:** Implementation guide documented; tenant configuration and end-to-end validation are not yet evidenced.
 
 ## Validation
 
