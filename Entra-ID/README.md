@@ -6,10 +6,10 @@ This workstream covers Microsoft Entra ID security, identity lifecycle managemen
 
 The corresponding repository folders use numeric prefixes to keep the execution areas in a conventional, sortable order.
 
-- **01-Security:** Conditional Access, MFA, authentication methods, Identity Protection, Privileged Identity Management (PIM) and emergency access.
-- **03-Lifecycle:** Joiner, mover and leaver processes.
-- **04-Governance:** Access Reviews, Entitlement Management, group ownership and Lifecycle Workflows.
+- **01-Security:** Conditional Access, MFA, authentication methods, Identity Protection, Privileged Identity Management (PIM) and emergency access. [Current lab: Intune Device Compliance & Conditional Access](./01-Security/Device-Compliance-Conditional-Access/README.md).
 - **02-Hygiene:** Stale identities, guest accounts, missing attributes, group ownership and licensing analysis.
+- **03-Lifecycle:** Joiner, mover and leaver processes. [Exchange Online leaver mailbox controls — Labs 1 and 2](./03-Lifecycle/Leavers/Exchange-Mailbox-Controls/README.md).
+- **04-Governance:** Access Reviews, Entitlement Management, group ownership and Lifecycle Workflows.
 - **05-Reporting:** Identity inventory, licensing reports, audit evidence and governance metrics.
 
 ## Repository status
