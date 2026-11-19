@@ -14,6 +14,15 @@ This folder contains reference PowerShell scripts and implementation notes for M
 | [Invoke-Offboard-Exchange.ps1](./Invoke-Offboard-Exchange.ps1) | Reference Exchange Online mailbox and mail-enabled group actions | Validate each write operation and ensure the audit log reflects actual results. |
 | [Invoke-Offboard-Placeholder.ps1](./Invoke-Offboard-Placeholder.ps1) | Preserved placeholder | Not a working entry point. |
 
+## Exchange Online mailbox controls — Labs 1 and 2
+
+See [Exchange Online Leaver Mailbox Controls](./Exchange-Mailbox-Controls/README.md).
+
+- **Lab 1:** Hide approved disabled-user cloud mailboxes from the Global Address List, with audit evidence and a companion restore script.
+- **Lab 2:** Apply a standard leaver auto-reply only when no enabled or scheduled reply already exists, with prior-state capture and a companion restore script.
+
+**Status:** Scripts and documentation have been added. Execution and tenant validation are not yet evidenced. Review the lab-specific safety notes before testing.
+
 ## Entra Lifecycle Workflows → Logic App → Azure Automation
 
 See [Logic App custom extension setup](./Logic-App-Setup/README.md) for the documented integration pattern, setup sequence, examples, test runbooks and troubleshooting.
